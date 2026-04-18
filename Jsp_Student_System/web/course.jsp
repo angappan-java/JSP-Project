@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Course Details</title>
          <link rel="stylesheet" href="assets/css/bootstrap.min.css">
          <style>
              body{

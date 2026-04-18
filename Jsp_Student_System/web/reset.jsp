@@ -25,7 +25,7 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="text-info text-center">Reset Password</h1>
+            <h1 class="text-dark text-center">Reset Password</h1>
             <form action="reset.jsp" method="post">
               
                 <div class="mb-3">

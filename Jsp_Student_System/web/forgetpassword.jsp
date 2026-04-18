@@ -25,7 +25,7 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="text-info text-center">Forget Password</h1>
+            <h1 class="text-dark text-center">Forget Password</h1>
             <form action="forgetpassword.jsp" method="get">
                 <div class="mb-3">
                     <label>ID</label>
@@ -35,7 +35,7 @@
                             if(request.getParameter("get")!=null){
                                   String Id=request.getParameter("id");
                                   String Sql="sp_admin_getbyone ?";
-                                  try(Connection c=DB.JDBC.con();PreparedStatement ps=c.prepareStatement(Sql);){
+                                  try(Connection c=JDBC.con();PreparedStatement ps=c.prepareStatement(Sql);){
                                       ps.setString(1,Id);
                                       ResultSet rs=ps.executeQuery();
                                       if(rs.next()){

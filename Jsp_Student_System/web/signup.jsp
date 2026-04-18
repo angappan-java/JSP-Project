@@ -61,7 +61,7 @@
              String Name=request.getParameter("name");
              String Pass=request.getParameter("pass");
              String sql="sp_admin_insert ?,?,?";
-             try(Connection conn=DB.JDBC.con();PreparedStatement pst=conn.prepareStatement(sql)){
+             try(Connection conn=JDBC.con();PreparedStatement pst=conn.prepareStatement(sql)){
                    pst.setString(1,Id);
                    pst.setString(2,Name);
                    pst.setString(3,Pass);

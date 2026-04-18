@@ -27,7 +27,7 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="text-center text-primary">Login</h1>
+            <h1 class="text-center text-dark">Login</h1>
             <form action="login.jsp" method="post">
                 <div class="mb-3">
                     <label>Name</label>
@@ -42,13 +42,13 @@
                         <input type="submit" class="btn btn-primary" name="login" value="Login"><br><br>
                     </div>
                     <div class="col">
-                        <a href="signup.jsp" class="btn btn-dark">Sign Up</a>
+                        <a href="signup.jsp" class="btn btn-success">Sign Up</a>
                     </div>
                     <div class="col">
-                        <a href="reset.jsp" class="btn btn-danger">Reset Password</a>
+                        <a href="reset.jsp" class="btn btn-info">Reset Password</a>
                     </div>
                     <div class="col">
-                        <a href="forgetpassword.jsp"  class="btn btn-dark">Forget Password</a>
+                        <a href="forgetpassword.jsp"  class="btn btn-danger">Forget Password</a>
                     </div>
                 </div>
             </form>
@@ -58,7 +58,7 @@
                   String Name=request.getParameter("name");
                   String Pass=request.getParameter("pass");
                   String sql="sp_admin_login ?,?";
-                  try(Connection c=DB.JDBC.con();PreparedStatement ps=c.prepareStatement(sql);){
+                  try(Connection c=JDBC.con();PreparedStatement ps=c.prepareStatement(sql);){
                   ps.setString(1,Name);
                   ps.setString(2,Pass);
                   ResultSet rs=ps.executeQuery();
@@ -66,7 +66,7 @@
                   %>
                   <script>
                       alert("Login SuccessFully....");
-                      loaction.assign("http://localhost:8081/Jsp_Student_System/student.jsp");
+                      location.assign("http://localhost:8081/Jsp_Student_System/student.jsp");
                   </script>
                   <%
                       HttpSession ses=request.getSession();
