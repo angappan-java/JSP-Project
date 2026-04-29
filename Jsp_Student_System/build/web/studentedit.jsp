@@ -13,13 +13,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Student Update</title>
-          <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>StudentEdit-Student Application System </title>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
         <style>
-            body{
-                background-color:#ced4da;
+             body::-webkit-scrollbar{
+                display:none;
+                overflow-x: hidden;
+                overflow-y: hidden;
             }
+            body{
+            background-image:url("image/bg3.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+         }
         </style>
     </head>
     <body>
@@ -36,7 +47,8 @@
         <div class=" container">
             <h1 class="text-center">Student Reports</h1>
             <h2 class="text-center">Welcome Hai....<%=Name%></h2>
-            <form action="stuupdate" method="post" enctype="multipart/form-data" class="row g-3">
+            <div class="form-control bordered rounded mx-auto w-75 p-5">
+                <form action="stuupdate" method="post" enctype="multipart/form-data" class="row g-3">
                 <div class="col-md-6">
                     <label>ID</label>
                     <input type="text" class="form-control" name="id" value="<%=request.getAttribute("id")%>" readonly>              
@@ -51,7 +63,7 @@
                 </div>
                 <div class="col-md-6">
                     <label>IMAGE</label>
-                    <input type="file" class="form-control" name="image" required="">
+                    <input type="file" class="form-control" name="image">
                     <image src="data:image/jpeg;base64,<%=Base64.getEncoder().encodeToString((byte[])request.getAttribute("image"))%>" alt="image" style="width:100px; height:100px">
                 </div>
                 <div class="col-md-6">
@@ -95,11 +107,14 @@
                         %>
                     </select>
                 </div>
-                    <div class="col-12">
-                        <button type="submit" name="submit" class="btn btn-primary w-100">UPDATE</button>
+                    <div class="offset-md-3 col-md-6 d-grid">
+                        <button type="submit" name="submit" class="btn btn-primary fw-bold">UPDATE</button>
                     </div>
-           
+            </form>
+         </div>
         </div>
-      <script src="assets/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
     </body>
 </html>

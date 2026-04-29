@@ -17,14 +17,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Student</title>
-         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-         <style>
-             body{
-                 background-color:aliceblue;
-             }
-         </style>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login-Student Application System </title>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <style>
+             body::-webkit-scrollbar{
+                display:none;
+                overflow-x: hidden;
+                overflow-y: hidden;
+            }
+            body{
+            background-image:url("image/bg3.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+         }
+        </style>
     </head>
     <body>
         <script>
@@ -62,8 +73,19 @@
             }
         %>
         <div class=" container">
+            
             <h1 class="text-center">Student Reports</h1>
             <h2 class="text-center">Welcome Hai....<%=Name%></h2>
+            <%
+               String message=(String)session.getAttribute("msg");
+               if(message!=null){
+            %>
+            <script>alert("<%=message%>")</script>
+            <%
+                 session.removeAttribute(message);
+               }
+            %>
+        <div class="form-control bordered rounded mx-auto w-75">
             <form action="stuadd" method="post" enctype="multipart/form-data" class="row g-3">
                 <div class="col-md-6">
                     <label>ID</label>
@@ -116,31 +138,32 @@
                         %>
                     </select>
                 </div>
-                    <div class="col-12">
-                        <button type="submit" name="submit" class="btn btn-primary w-100">SUBMIT</button>
+                    <div class="offset-md-3 col-md-6 d-grid">
+                        <button type="submit" name="submit" class="btn btn-primary fw-bold">SUBMIT</button>
                     </div>
-            </form>
-                    <br><br><br>
-                    <div class="row">
-                     
-                        <div class="col">
-                            <a href="course.jsp" class="btn btn-info">COURSE</a>
-                        </div>
-                        <div class="col">
-                            <form>
-                                <input type="submit" name="logout" value="LOGOUT"
-                                       onclick="show('<%=alert%>')" class="btn btn-primary">
-                            </form>
-                        </div>
-                            <div class="col">
-                                <button class="btn btn-success" onclick="print()">PRINT</button>
-                            </div>
-                    </div>
+            </form><br><br>
+           <div class="row mb-3">
+                <div class="col-xl-4 d-flex justify-content-center">
+                    <a href="course.jsp" class="btn btn-info fw-bold">COURSE</a>
+                </div>              
+                <div class="col-xl-4 d-flex justify-content-center">
+                    <button class="btn btn-success fw-bold" onclick="print()">PRINT</button>
+                </div>
+                <div class="col-xl-4 d-flex justify-content-center">
+                    <form>
+                        <input type="submit" name="logout" value="LOGOUT"
+                           onclick="show('<%=alert%>')" class="btn btn-primary fw-bold">
+                    </form>
+                </div>
+          </div>
+         </div>
+                    
+                    
         </div>
          <br><br><br> 
          <div class="container">
              <h2 class="text-center" style="color:dimgray">Student List</h2>
-             <table class="table table-bordered" id="print"
+             <table class="table table-bordered table-hover" id="print"
                     style="color:black;border:2px solid black;text-align: center ">
                  <tr>
                      <th>ID</th>
@@ -179,12 +202,12 @@
                                    <!-- Edit Button -->
                                    <form action="stuedit" method="post" style="display:inline-block;">
                                        <input type="hidden" name="id" value="<%=I%>">
-                                       <button type="submit"  class="btn btn-warning btn-sm">Edit</button>
+                                       <button type="submit"  class="btn btn-warning fw-bold"><i class="bi bi-pencil-square"></i>Edit</button>
                                    </form>
                                        <!--Delete Button -->
                                     <form action="studelete" method="post" style="display:inline-block;">
                                        <input type="hidden" name="id" value="<%=I%>">
-                                       <button type="submit"  class="btn btn-danger btn-sm">Delete</button>
+                                       <button type="submit"  class="btn btn-danger fw-bold"><i class="bi bi-trash"></i>Delete</button>
                                    </form>     
                                </td>
                        
@@ -193,14 +216,14 @@
                    <%         
                        }
                      }catch(Exception e){
-                      out.println(e);
+                           out.println("<script>alert('Error :"+e.getMessage()+"')</script>");
                      }
                  %>
              </table>
          </div>
               <jsp:include page="footer.jsp"/>
              
-         <script src="assets/js/bootstrap.min.js"></script>
-        
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
      </body>
 </html>

@@ -14,21 +14,24 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand ps-4" href="student.jsp">JSP_STUDENT</a>
+            <a class="navbar-brand ps-4" href="student.jsp">Student Management System</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-success me-3 text-info" href="admin_details.jsp">ADMIN</a>
+                        <a class="nav-link btn btn-success fw-bold me-3 text-white" href="admin_details.jsp">ADMIN</a>
                     </li>
                     <li class="nav-item">
                         <form action="pdf" method="get">
-                            <button type="submit" class="btn btn-primary me-3">PDF</button>                   
+                            <button type="submit" class="btn btn-primary fw-bold me-3">PDF</button>                   
                         </form>
                     </li>
                     <li class="nav-item">
                         <form action="csv" method="get">
-                            <button type="submit" class="btn btn-warning me-3">CSV</button>
+                            <button type="submit" class="btn btn-warning fw-bold me-3">CSV</button>
                         </form>
+                    </li>
+                    <li>
+                        
                     </li>
                 </ul>
             </div>

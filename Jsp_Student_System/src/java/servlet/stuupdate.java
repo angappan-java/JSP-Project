@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.*;
 import DB.JDBC;
 import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.InputStream;
 
@@ -31,32 +32,41 @@ public class stuupdate extends HttpServlet {
         String time=request.getParameter("time");
         Part Image=request.getPart("image");
         
-        String sql="sp_student_update ?,?,?,?,?,?,?";
-        try(Connection c=JDBC.con();PreparedStatement ps=c.prepareStatement(sql);){
-             ps.setString(1,Id);
-             ps.setString(2,Name);
-             ps.setString(3,Gender);
-             ps.setDate(4,Date.valueOf(Dob));
-             ps.setString(5,Course);
-             InputStream Input=null;
-             if(Image!=null || Image.getSize()>0){
-                  Input=Image.getInputStream();
-                  
-            }
-             ps.setBinaryStream(6,Input,(int)Image.getSize());
-             ps.setTime(7,Time.valueOf(time));
+        
+        
+        try{
+            Connection c=JDBC.con();
+            String sql;
+            PreparedStatement ps;
+            boolean hasImage=(Image!=null && Image.getSize()>0);
+            if(hasImage){
+                sql="update student set name=?,gender=?,dob=?,course_name=?,image=?,time=? where id=?";
+                ps=c.prepareStatement(sql);
+                ps.setString(1,Name);
+                ps.setString(2,Gender);
+                ps.setDate(3,Date.valueOf(Dob));
+                ps.setString(4,Course);
+                ps.setBinaryStream(5,Image.getInputStream(),(int)Image.getSize());
+                ps.setTime(6,Time.valueOf(time));
+                ps.setString(7,Id);
+            }else{
+                sql="update student set name=?,gender=?,dob=?,course_name=?,time=? where id=?";
+                ps=c.prepareStatement(sql);
+                ps.setString(1,Name);
+                ps.setString(2,Gender);
+                ps.setDate(3,Date.valueOf(Dob));
+                ps.setString(4,Course);
+                ps.setTime(5,Time.valueOf(time));
+                ps.setString(6,Id);
+            }   
              int a=ps.executeUpdate();
              if(a>0){
+                    HttpSession session=request.getSession();
+                    session.setAttribute("msg","Student Profile Update Succesfully...");
                     response.sendRedirect("student.jsp");
-              }
-             
-            
+            }  
         }catch(Exception e){
                e.printStackTrace();
-        }
-        
-        
+        }  
     }
-
-
 }

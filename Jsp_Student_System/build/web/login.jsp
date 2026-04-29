@@ -4,6 +4,7 @@
     Author     : ELCOT
 --%>
 
+<%@page import="Password.SecurePassword"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
 <%@page import="DB.JDBC"%>
@@ -12,65 +13,82 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login Page</title>
+         <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login-Student Application System </title>
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-         <style>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <style>
         body{
-            background-color:#f5c2c7;
+            background-image:url("image/login.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
-        label,input{
-            font-size:30px;
-            font-family:sens-serif;
-        }
+        
         </style>
     </head>
     <body>
         <div class="container">
-            <h1 class="text-center text-dark">Login</h1>
+          <div class="form-control bordered rounded mx-auto w-50 mt-5">
+            <h4 class="text-center text-primary fw-bold">Login</h4>
             <form action="login.jsp" method="post">
-                <div class="mb-3">
-                    <label>Name</label>
-                    <input type="text" class="form-control" name="name" required="">
+                <div class="row mb-3">
+                    <label class="col-sm-4 fw-bold form-label">Email</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="email" required="">
+                    </div>                   
                 </div>
-                <div class="mb-3">
-                    <label>Password</label>
-                    <input type="text" class="form-control" name="pass" required="">
+                <div class="row mb-3">
+                    <label class="col-sm-4 fw-bold form-label">Password</label>
+                    <div class="col-sm-8">
+                        <div class="position-relative">
+                          <input type="password" class="form-control" name="pass" id="password">
+                          <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y me-3" id="eye"
+                          style="cursor:pointer;" onclick="toggleEye()"></i>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <input type="submit" class="btn btn-primary" name="login" value="Login"><br><br>
+                    <div class="offset-md-4 col-md-4 d-grid">
+                        <button type="submit" name="login" class="btn btn-primary fw-bold">Login</button>
                     </div>
-                    <div class="col">
-                        <a href="signup.jsp" class="btn btn-success">Sign Up</a>
-                    </div>
-                    <div class="col">
-                        <a href="reset.jsp" class="btn btn-info">Reset Password</a>
-                    </div>
-                    <div class="col">
-                        <a href="forgetpassword.jsp"  class="btn btn-danger">Forget Password</a>
+                    <div class="col-md-4 d-grid">
+                        <a href="index.jsp" class="btn btn-success fw-bold">Back</a>
                     </div>
                 </div>
+                <div class="row">
+                    <p class="text-center fw-bold mt-5">Don't Have An Account ?<a href="signup.jsp" class="text-primary" style="text-decoration: underline;">Sign Up</a></p>
+                </div>
+                <div class="row">
+                        <p class="offset-md-4 "><a href="forgetpassword.jsp"  class="text-danger fw-bold">Forget Password ?</a></p> 
+                    </div>
+<!--                <div class="col">
+                        <a href="reset.jsp" class="btn btn-info">Reset Password</a>
+                    </div>-->
             </form>
+           </div>
         </div>
         <%
             if(request.getParameter("login")!=null){
-                  String Name=request.getParameter("name");
+                  String Email=request.getParameter("email");
                   String Pass=request.getParameter("pass");
                   String sql="sp_admin_login ?,?";
                   try(Connection c=JDBC.con();PreparedStatement ps=c.prepareStatement(sql);){
-                  ps.setString(1,Name);
-                  ps.setString(2,Pass);
+                  ps.setString(1,Email);
+                  ps.setString(2,SecurePassword.encrypt(Pass));
                   ResultSet rs=ps.executeQuery();
                   if(rs.next()){
                   %>
                   <script>
                       alert("Login SuccessFully....");
-                      location.assign("http://localhost:8081/Jsp_Student_System/student.jsp");
+                      location.assign("http://localhost:8080/Jsp_Student_System/student.jsp");
                   </script>
                   <%
                       HttpSession ses=request.getSession();
-                      ses.setAttribute("N",Name);
+                      ses.setAttribute("N",rs.getString("name"));
                    }else{
                   %><script>
                    alert("Login Failed....");
@@ -83,7 +101,22 @@
                   
             }
          %>
-       <script src="assets/js/bootstrap.min.js"></script>
+         <script>
+      function toggleEye(){
+	const pwd=document.getElementById("password");
+	const eye=document.getElementById("eye");
+	if(pwd.type==="password"){
+		pwd.type="text";
+		eye.classList.replace("bi-eye-slash","bi-eye");
+	}else{
+		pwd.type="password";
+		eye.classList.replace("bi-eye","bi-eye-slash");
+	}
+}
+        </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
     </body>
 </html>
 

@@ -12,17 +12,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Course Details</title>
-         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>StudentEdit-Student Application System </title>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
          <style>
-             body{
-                 background-color:#198754;             
-             }
-             label,input{
-                 font-size: 30px;
-                 font-family: sens-serif;
-              }
+            body::-webkit-scrollbar{
+                display:none;
+                overflow-x: hidden;
+                overflow-y: hidden;
+            }
+            body{
+            background-image:url("image/bg3.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+         }
          </style>
     </head>
     <body>
@@ -37,36 +44,43 @@
          
         %>
         <div class="container">
-            <h1 class="text-center" style="color:yellow">COURSE</h1>
+            <h3 class="text-center text-dark fw-bold">COURSE</h3>
             
-            <h2 class="text-center">Welcome Hai....<%=N%></h2>
+            <h4 class="text-center">Welcome Hai....<%=N%></h4>
+            <div class="form-control bordered rounded mx-auto w-50 p-5">
             <form action="course.jsp" method="post">
-                <div class="mb-3">
-                      <label class="text-dark">ID</label>
-                <input type="text" class="form-control" value="${param.id}" required="" name="id">
+                <div class="row mb-3">
+                      <label class="col-sm-4 text-dark form-label fw-bold">ID</label>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" value="${param.id}" required="" name="id">
+                      </div>
+                      
                 </div>
-                <div class="mb-3">
-                    <label class="text-dark">COURSE NAME</label>
-                    <input type="text" class="form-control" value="${param.name}" required="" name="name">
+                <div class="row mb-3">
+                    <label class="col-sm-4 text-dark form-label fw-bold">COURSE NAME</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" value="${param.name}" required="" name="name">
+                    </div>             
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary" name="add">ADD</button>
+                    <div class="col-md-3 col-sm-6 d-grid">
+                        <button type="submit" class="btn btn-primary fw-bold" name="add">ADD</button>
                     </div>  
-                     <div class="col">
-                        <button type="submit" class="btn btn-primary" name="edit">EDIT</button>
+                     <div class="col-md-3 col-sm-6 d-grid">
+                        <button type="submit" class="btn btn-primary fw-bold" name="edit">EDIT</button>
                     </div> 
-                     <div class="col">
-                        <button type="submit" class="btn btn-primary" name="delete">DELETE</button>
+                     <div class="col-md-3 col-sm-6 d-grid">
+                        <button type="submit" class="btn btn-primary fw-bold" name="delete">DELETE</button>
                     </div>
-                     <div class="col">
-                         <a href="student.jsp" class="btn btn-danger">Back</a>
+                     <div class="col-md-3 col-sm-6 d-grid">
+                         <a href="student.jsp" class="btn btn-danger fw-bold">Back</a>
                     </div>     
                 </div>
             </form>
+          </div>
             <% 
-               if(request.getParameter("add")!=null){
-                    String Id=request.getParameter("id");
+              if(request.getParameter("add")!=null){
+                    String Id=request.getParameter("id");                   
                     String Name=request.getParameter("name");
                     String sql="sp_course_insert ?,?";
                     try(Connection c=JDBC.con();PreparedStatement ps=c.prepareStatement(sql);){
@@ -124,14 +138,14 @@
                  }
             %>
         </div> 
-           <div class="container-fluid text-center" >
-                <h1 class="text-center" style="color:yellow">COURSE DETAILS</h1>
-               <table class="table table-hover " style="background-color:white; border:2px solid blue;text-align: center;" >
+           <div class="container text-center mt-5">
+                <h4 class="text-center text-success fw-bold ">COURSE DETAILS</h4>
+               <table class="table table-bordered table-hover " style="background-color:white; border:2px solid blue;text-align: center;" >
                    <thead style="color:black;font-size:20px;">
                        <tr>
-                           <td>ID</td>
-                           <<td>COURSE NAME</td>
-                           <td>ACTIONS</td>
+                           <th>ID</th>
+                           <th>COURSE NAME</th>
+                           <th>ACTIONS</th>
                        </tr>
                    </thead>
                    <tbody>
@@ -151,13 +165,13 @@
                                    <form action="course.jsp" method="post" style="display:inline-block;">
                                        <input type="hidden" name="id" value="<%=Id%>">
                                        <input type="hidden" name="name" value="<%=Course_Name%>">
-                                       <button type="submit"  class="btn btn-warning btn-sm">Edit</button>
+                                       <button type="submit"  class="btn btn-warning fw-bold"><i class="bi bi-pencil-square"></i>Edit</button>
                                    </form>
                                        <!--Delete Button -->
                                     <form action="course.jsp" method="post" style="display:inline-block;">
                                        <input type="hidden" name="id" value="<%=Id%>">
                                        <input type="hidden" name="name" value="<%=Course_Name%>">
-                                       <button type="submit"  class="btn btn-danger btn-sm">Delete</button>
+                                       <button type="submit"  class="btn btn-danger fw-bold"><i class="bi bi-trash"></i>Delete</button>
                                    </form>     
                                </td>
                            </tr>
@@ -172,6 +186,7 @@
                </table>                  
                 </div>
         
-        <script src="assets/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
     </body>
 </html>
